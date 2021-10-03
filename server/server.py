@@ -1,7 +1,6 @@
 import socket
 
 class Server:
-
     @staticmethod
     def run():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -19,13 +18,23 @@ class Server:
                     if not data:
                         break
 
-                    # do something with return value (data)
+                    # TODO: look at data, read the request, handle request
                     print(data)
 
                     # like this we can send something back 
                     clientsocket.sendall(data)
+       
+    def search_torrents():
+        # TODO: enable VPN
+        # TODO: send https req
+        # TODO: parse result
+        # TODO: return torrent list
+        pass
 
-            #clientsocket.close()
+    def get_status():
+        # TODO: query transmission for status
+        # TODO: send status report
+        pass
 
 if __name__ == '__main__':
     Server.run()
