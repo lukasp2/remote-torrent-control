@@ -6,7 +6,7 @@ class Server:
     @staticmethod
     def run():
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(('127.0.0.1', 9999))
+        s.bind(('', 9999))
         s.listen()
 
         while True:
@@ -19,21 +19,30 @@ class Server:
 
                 if not data:
                     break
+                
+                data = json.loads(data)
 
                 if data['request'] == 'search_torrents':
                     # search torrents matching data['query']
                     # use beautiful soup?
                     # return list of results
-                    msg = { 'results' : [] }
+                    msg = { 
+                        'request' : 'search_torrents',
+                        'response' : [], # torrents
+                        }
 
                 elif data['request'] == 'status_check':
                     # make status check to transmission
                     # return status
-                    msg = { 'status' : 0 }
+                    msg = { 
+                        'request' : 'status_check',
+                        'response' : ['status and info for download #1'], # statuses
+                        }
 
                 data = json.dumps(msg)
                 try:
                     clientsocket.sendall(bytes(data, encoding="utf-8"))
+                    print('sent', repr(data), 'to client')
                 except socket.error:
                     print("Failed to send")
                     sys.exit()
