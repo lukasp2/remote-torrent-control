@@ -7,7 +7,7 @@ import json
 class Client:
     @staticmethod
     def run():        
-        HOST = '127.0.0.1'  # server's hostname or IP address
+        HOST = 'raspberrypi'  # server's hostname or IP address
         PORT = 9999         # server's port
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
