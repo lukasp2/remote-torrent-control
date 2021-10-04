@@ -11,8 +11,9 @@ class Server:
 
         while True:
             # await connections
+            print('waiting for connection ...')
             clientsocket, address = s.accept() 
-            print('Connected by', address)
+            print('connected by', address)
 
             while True:
                 data = clientsocket.recv(1024)
