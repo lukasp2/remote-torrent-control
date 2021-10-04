@@ -27,9 +27,10 @@ class Client:
             except socket.error:
                 print("Failed to send")
                 sys.exit()
-            data = s.recv(1024)
 
-        print('Received', repr(data))
+            data = json.loads(s.recv(1024))
+
+        print('Received', data)
 
 if __name__ == '__main__':
     Client.run()
