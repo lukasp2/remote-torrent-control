@@ -7,7 +7,7 @@
 * andriod
   * install the app
 * torrent server
-  * run the reciever script
+  * run ```server.py``` on the server
 
 ## TODO
 * router
