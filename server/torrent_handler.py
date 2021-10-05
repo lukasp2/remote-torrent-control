@@ -2,34 +2,23 @@
 
 # sudo apt-get install -y libnss3
 
-import asyncio
 from bs4 import BeautifulSoup
 from pyppeteer import launch
 import os
 import json
 
 class TorrentHandler:
-    @staticmethod
     def assert_VPN(self):
         command = 'nordvpn status'
         output = os.popen(command).read()
         if output.find('Status: Connected') == -1:
-            raise AssertionError("not connected to a VPN")
+            command = 'nordvpn connect'
+            os.popen(command).read()
+            command = 'nordvpn status'
+            output = os.popen(command).read()
+            if output.find('Status: Connected') == -1:
+                raise AssertionError("not connected to a VPN")
 
-    @staticmethod
-    def start_download(self, magnet):
-        self.assert_VPN()
-        command = 'transmission-remote -a ' + magnet
-        output = os.popen(command).read()
-        return output # TODO: return success status
-    
-    @staticmethod
-    def check_torrent_status():
-        command = 'transmission-remote -l'
-        output = os.popen(command).read()
-        return output # TODO: return dict
-    
-    @staticmethod
     async def search_torrents(self, query):
         self.assert_VPN()
         
@@ -72,5 +61,15 @@ class TorrentHandler:
         await browser.close()
 
         return torrents
-
-
+        
+    def start_download(self, magnet):
+        self.assert_VPN()
+        command = 'transmission-remote -a ' + magnet
+        output = os.popen(command).read()
+        return output # TODO: return success status
+    
+    def check_torrent_status(self):
+        command = 'transmission-remote -l'
+        output = os.popen(command).read()
+        return output # TODO: return dict
+    

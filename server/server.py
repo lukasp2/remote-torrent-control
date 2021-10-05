@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+import asyncio
+
 import socket
 import json
 import sys
 
-import torrent_handler
+from torrent_handler import TorrentHandler
 
 class Server:
     @staticmethod
@@ -12,6 +14,8 @@ class Server:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind(('', 9999))
         s.listen()
+
+        torrentHandler = TorrentHandler()
 
         while True:
             print('waiting for connection ...')
@@ -27,9 +31,9 @@ class Server:
                 data = json.loads(data)
 
                 if data['request'] == 'search_torrents':
-                    query = data['request']
+                    query = data['query']
                     torrents = asyncio.get_event_loop().run_until_complete(
-                        TorrentHandler.search_torrents(query)
+                        torrentHandler.search_torrents(query)
                     )
                     msg = {
                         'request' : data['request'],
@@ -40,13 +44,13 @@ class Server:
                     magnet = data['magnet_link']
                     msg = { 
                         'request' : data['request'],
-                        'response' : TorrentHandler.start_download(magnet_link)
+                        'response' : torrentHandler.start_download(magnet_link)
                         }
 
                 elif data['request'] == 'status_check':
                     msg = { 
                         'request' : data['request'],
-                        'response' : TorrentHandler.check_torrent_status(),
+                        'response' : torrentHandler.check_torrent_status(),
                         }
                     
                 data = json.dumps(msg)
