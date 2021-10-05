@@ -1,13 +1,14 @@
 # remote-torrent-control
 
 ## Setup
-* router  
-  * set dynDNS e.x. myhome.homefpt.net
-  * port forward 9999 to <rasp pi IP> 9999
 * andriod
   * install the app
 * torrent server
+  * setup split tunneling
   * run ```server.py``` on the server
+* router (optional)
+  * set dynDNS e.x. myhome.homefpt.net
+  * port forward 9999 to <rasp pi IP> 9999
 
 ## TODO
 ### client (android device) 
