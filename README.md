@@ -5,6 +5,7 @@
   * install the app
 * torrent server
   * setup split tunneling
+  * setup transmission-remote
   * run ```server.py```
 * router (optional, for external access only)
   * set dynDNS e.x. myhome.homefpt.net
