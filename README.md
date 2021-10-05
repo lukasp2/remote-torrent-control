@@ -5,8 +5,8 @@
   * install the app
 * torrent server
   * setup split tunneling
-  * run ```server.py``` on the server
-* router (optional)
+  * run ```server.py```
+* router (optional, for external access only)
   * set dynDNS e.x. myhome.homefpt.net
   * port forward 9999 to <rasp pi IP> 9999
 
@@ -17,14 +17,15 @@
 - [X] recieve answers
 - [ ] display answers
 ### server (raspberry pi)
-- [ ] enable split tunneling
 - [X] listen on port 9999
 - [X] recieve torrent search / status requests
-- [ ] enable/check VPN connection
 - [X] send search request to torrent website
 - [ ] start download from torrent website
+- [ ] move torrent to transmission and start P2P
+- [ ] enable split tunneling
+- [ ] enable/check VPN connection
 - [ ] check status of transmission
 - [ ] send answers to sender
- ### router (for external access only)
+ ### router (optional, for external access only)
 - [ ] setup dynDNS
 - [ ] setup portforwarding
