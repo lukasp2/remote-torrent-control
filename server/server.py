@@ -2,6 +2,8 @@ import socket
 import json
 import sys
 
+import scraper
+
 class Server:
     @staticmethod
     def run():
@@ -24,12 +26,9 @@ class Server:
                 data = json.loads(data)
 
                 if data['request'] == 'search_torrents':
-                    # search torrents matching data['query']
-                    # use beautiful soup?
-                    # return list of results
-                    msg = { 
+                    msg = {
                         'request' : 'search_torrents',
-                        'response' : [], # torrents
+                        'response' : scraper.search_torrents(data['query'])
                         }
 
                 elif data['request'] == 'status_check':
@@ -39,7 +38,10 @@ class Server:
                         'request' : 'status_check',
                         'response' : ['status and info for download #1'], # statuses
                         }
-
+                    
+                elif data['request'] == 'download':
+                    pass
+                    
                 data = json.dumps(msg)
                 try:
                     clientsocket.sendall(bytes(data, encoding="utf-8"))
