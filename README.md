@@ -24,7 +24,7 @@
 - [ ] start download from torrent website
 - [ ] move torrent to transmission and start P2P
 - [ ] enable split tunneling
-- [ ] enable/check VPN connection
+- [X] enable/check VPN connection
 - [ ] check status of transmission
 - [ ] send answers to sender
  ### router (optional, for external access only)
