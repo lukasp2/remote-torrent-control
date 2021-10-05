@@ -20,8 +20,8 @@
 - [X] recieve torrent search / status requests
 - [ ] enable/check VPN connection
 - [ ] send search request to torrent website
+- [ ] start download from torrent website
 - [ ] check status of transmission
-- [X] parse answers
 - [ ] send answers to sender
  ### router (for external access only)
 - [ ] setup dynDNS
