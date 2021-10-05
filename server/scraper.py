@@ -51,5 +51,5 @@ async def search_torrents__(query):
     return torrents
 
 def search_torrents(query):
-    return asyncio.get_event_loop().run_until_complete(search_torrents(query))
+    return asyncio.get_event_loop().run_until_complete(search_torrents__(query))
 

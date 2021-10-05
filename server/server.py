@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import socket
 import json
 import sys
@@ -12,7 +14,6 @@ class Server:
         s.listen()
 
         while True:
-            # await connections
             print('waiting for connection ...')
             clientsocket, address = s.accept() 
             print('connected by', address)
@@ -26,14 +27,15 @@ class Server:
                 data = json.loads(data)
 
                 if data['request'] == 'search_torrents':
+                    # TODO: enable VPN
                     msg = {
                         'request' : 'search_torrents',
                         'response' : scraper.search_torrents(data['query'])
                         }
 
                 elif data['request'] == 'status_check':
-                    # make status check to transmission
-                    # return status
+                    # TODO: query transmission for status
+                    # TODO: send status report
                     msg = { 
                         'request' : 'status_check',
                         'response' : ['status and info for download #1'], # statuses
@@ -51,18 +53,6 @@ class Server:
                     sys.exit()
 
         s.close()
-
-    def search_torrents():
-        # TODO: enable VPN
-        # TODO: send https req
-        # TODO: parse result
-        # TODO: return torrent list
-        pass
-
-    def get_status():
-        # TODO: query transmission for status
-        # TODO: send status report
-        pass
 
 if __name__ == '__main__':
     Server.run()

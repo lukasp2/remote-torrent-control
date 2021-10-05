@@ -25,12 +25,12 @@ class Client:
             try:
                 s.sendall(bytes(data, encoding="utf-8"))
             except socket.error:
-                print("Failed to send")
+                print("failed to send, exiting ...")
                 sys.exit()
 
             data = json.loads(s.recv(1024))
 
-        print('Received', data)
+        print('received', data)
 
 if __name__ == '__main__':
     Client.run()
