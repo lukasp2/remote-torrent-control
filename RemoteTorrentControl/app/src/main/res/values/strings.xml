@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Remote Torrent Control</string>
+
+    <!-- Common strings -->
+    <string name="back">Back</string>
+
+    <!-- Strings for Main activity -->
+    <string name="title_activity_main">Remote Torrent Control</string>
+    <string name="search_torrents">Search torrents</string>
+    <string name="download_from_url">Download from URL</string>
+
+    <!-- Strings for search torrent activity -->
+    <string name="search">Search</string>
+    <string name="download">Download</string>
+
+    <!-- Strings for status activity -->
+    <string name="status">Status</string>
+    <string name="update_list">Update list</string>
+
+    <!-- ... -->
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+</resources>
