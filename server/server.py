@@ -4,7 +4,7 @@ import socket
 import json
 import sys
 
-import scraper
+import torrent_handler
 
 class Server:
     @staticmethod
@@ -27,22 +27,27 @@ class Server:
                 data = json.loads(data)
 
                 if data['request'] == 'search_torrents':
-                    # TODO: enable VPN
+                    query = data['request']
+                    torrents = asyncio.get_event_loop().run_until_complete(
+                        TorrentHandler.search_torrents(query)
+                    )
                     msg = {
-                        'request' : 'search_torrents',
-                        'response' : scraper.search_torrents(data['query'])
+                        'request' : data['request'],
+                        'response' : torrents
+                        }
+
+                elif data['request'] == 'download':
+                    magnet = data['magnet_link']
+                    msg = { 
+                        'request' : data['request'],
+                        'response' : TorrentHandler.start_download(magnet_link)
                         }
 
                 elif data['request'] == 'status_check':
-                    # TODO: query transmission for status
-                    # TODO: send status report
                     msg = { 
-                        'request' : 'status_check',
-                        'response' : ['status and info for download #1'], # statuses
+                        'request' : data['request'],
+                        'response' : TorrentHandler.check_torrent_status(),
                         }
-                    
-                elif data['request'] == 'download':
-                    pass
                     
                 data = json.dumps(msg)
                 try:

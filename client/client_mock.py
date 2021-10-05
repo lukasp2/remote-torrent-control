@@ -20,6 +20,8 @@ class Client:
                 msg = {"request": "search_torrents", "query": "batman"}
             elif x == 2:
                 msg = {"request": "status_check"}
+            elif x === 3:
+                msg = {"request": "download", "url" : ""}
             
             data = json.dumps(msg)
             try:
