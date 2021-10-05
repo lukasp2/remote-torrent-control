@@ -16,10 +16,11 @@
 - [X] recieve answers
 - [ ] display answers
 ### server (raspberry pi)
+- [ ] enable split tunneling
 - [X] listen on port 9999
 - [X] recieve torrent search / status requests
 - [ ] enable/check VPN connection
-- [ ] send search request to torrent website
+- [X] send search request to torrent website
 - [ ] start download from torrent website
 - [ ] check status of transmission
 - [ ] send answers to sender
