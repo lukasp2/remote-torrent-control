@@ -10,16 +10,20 @@
   * run ```server.py``` on the server
 
 ## TODO
-* router
-  * dynDNS
-  * portforwarding
-* sender (android device)
-  * send search torrents request
-  * send download torrent request
-  * recieve answers
-* reciever <raspberry pi>
-  * enable/check VPN connection
-  * listen on port 9999
-  * recieve search / download torrent requests
-  * send request to torrent website
-  * send answers to sender
+### router
+- [ ] dynDNS
+- [ ] portforwarding
+### client (android device) 
+- [X] send search torrents request
+- [X] send download torrent request
+- [X] recieve answers
+- [ ] display answers
+### server (raspberry pi)
+- [X] listen on port 9999
+- [X] recieve torrent search / status requests
+- [ ] enable/check VPN connection
+- [ ] send search request to torrent website
+- [ ] check status of transmission
+- [X] parse answers
+- [ ] send answers to sender
+ 
