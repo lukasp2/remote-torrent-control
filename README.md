@@ -10,9 +10,6 @@
   * run ```server.py``` on the server
 
 ## TODO
-### router
-- [ ] dynDNS
-- [ ] portforwarding
 ### client (android device) 
 - [X] send search torrents request
 - [X] send download torrent request
@@ -26,4 +23,6 @@
 - [ ] check status of transmission
 - [X] parse answers
 - [ ] send answers to sender
- 
+ ### router (for external access only)
+- [ ] setup dynDNS
+- [ ] setup portforwarding
