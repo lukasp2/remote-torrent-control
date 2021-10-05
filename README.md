@@ -21,11 +21,10 @@
 - [X] listen on port 9999
 - [X] recieve torrent search / status requests
 - [X] send search request to torrent website
-- [ ] start download from torrent website
-- [ ] move torrent to transmission and start P2P
+- [X] open magnet link in transmission
 - [ ] enable split tunneling
-- [ ] enable/check VPN connection
-- [ ] check status of transmission
+- [X] enable/check VPN connection
+- [X] check status of transmission
 - [ ] send answers to sender
  ### router (optional, for external access only)
 - [ ] setup dynDNS
