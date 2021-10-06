@@ -39,8 +39,8 @@ class User:
     def __init__(self):
         self.client = Client()
 
-    def send(self):
-        # input query you would like to mock
+    # mocks user queries to server
+    def run(self):
         x = int(input())
 
         if x == 1:
@@ -49,12 +49,13 @@ class User:
             msg = {"request": "status_check"}
         elif x == 3:
             msg = {"request": "download", "magnet" : "<this is a magnet>"}
-        
+        elif x == 4:
+            msg = {"request": self.client.DISCONNECT_MSG }
+
         response = self.client.send(msg)
 
-        # answer from server
-        data = json.loads(s.recv(4096 * 8))
+        print(response)
 
 if __name__ == '__main__':
-    c = Client()
-    c.run()
+    usr = User()
+    usr.run()

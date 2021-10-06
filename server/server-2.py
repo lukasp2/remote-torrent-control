@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import json
 import socket
 import threading
 
@@ -25,9 +26,9 @@ class Server:
             msg_length = conn.recv(self.HEADER).decode(self.FORMAT)
             if not msg_length:
                 continue
-            msg = conn.recv(msg_length).decode(self.FORMAT)
+            msg = json.loads(conn.recv(msg_length).decode(self.FORMAT))
             print(f"[{addr}] {msg}")
-            if msg == self.DISCONNECT_MSG:
+            if msg['request'] == self.DISCONNECT_MSG:
                 connected = False
 
         conn.close()
