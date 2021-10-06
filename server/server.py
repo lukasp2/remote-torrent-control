@@ -23,7 +23,7 @@ class Server:
             print('connected by', address)
 
             while True:
-                data = clientsocket.recv(4096 * 8)
+                data = clientsocket.recv(1024)
 
                 if not data:
                     break
@@ -41,10 +41,10 @@ class Server:
                         }
 
                 elif data['request'] == 'download':
-                    magnet = data['magnet_link']
+                    magnet = data['magnet']
                     msg = { 
                         'request' : data['request'],
-                        'response' : torrentHandler.start_download(magnet_link)
+                        'response' : torrentHandler.start_download(magnet)
                         }
 
                 elif data['request'] == 'status_check':

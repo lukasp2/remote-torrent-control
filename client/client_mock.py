@@ -21,7 +21,7 @@ class Client:
             elif x == 2:
                 msg = {"request": "status_check"}
             elif x == 3:
-                msg = {"request": "download", "url" : ""}
+                msg = {"request": "download", "magnet" : "<this is a magnet>"}
             
             data = json.dumps(msg)
             try:
