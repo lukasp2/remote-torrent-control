@@ -23,7 +23,7 @@ class ServerRequest {
             val input = BufferedReader(InputStreamReader(conn.inputStream))
 
             // check result
-            println("Client received: [${input.readLine()}]")
+            println("Client received: ${input.readLine()}")
         }
     }
 }

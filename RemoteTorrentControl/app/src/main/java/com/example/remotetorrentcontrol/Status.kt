@@ -24,7 +24,7 @@ class Status : AppCompatActivity() {
         var data = JSONObject()
         data.put("request", "status_check")
 
-        sr.send(data)
+        // sr.send(data)
 
         // TODO: set result in arrayList
         val listView = findViewById<ListView>(R.id.listview)
