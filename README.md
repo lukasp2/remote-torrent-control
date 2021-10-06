@@ -1,11 +1,12 @@
 # remote-torrent-control
 
 ## Setup
-* andriod
+* client
   * install the app
 * torrent server
   * setup split tunneling
-  * setup transmission-remote
+  * setup VPN
+  * setup transmission-remote https://pimylifeup.com/raspberry-pi-transmission/
   * run ```server.py```
 * router (optional, for external access only)
   * set dynDNS e.x. myhome.homefpt.net
@@ -23,7 +24,8 @@
 - [X] send search request to torrent website
 - [X] open magnet link in transmission
 - [ ] enable split tunneling
-- [X] enable/check VPN connection
+- [ ] enable VPN connection
+- [X] check VPN connection
 - [X] check status of transmission
 - [ ] send answers to sender
  ### router (optional, for external access only)
