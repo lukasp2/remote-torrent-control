@@ -23,7 +23,7 @@ class Server:
             print('connected by', address)
 
             while True:
-                data = clientsocket.recv(1024)
+                data = clientsocket.recv(4096 * 8)
 
                 if not data:
                     break
@@ -56,7 +56,7 @@ class Server:
                 data = json.dumps(msg)
                 try:
                     clientsocket.sendall(bytes(data, encoding="utf-8"))
-                    print('sent', repr(data), 'to client')
+                    print('sent', data, 'to client')
                 except socket.error:
                     print("Failed to send")
                     sys.exit()

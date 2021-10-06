@@ -30,7 +30,7 @@ class Client:
                 print("failed to send, exiting ...")
                 sys.exit()
 
-            data = json.loads(s.recv(1024))
+            data = json.loads(s.recv(4096 * 8))
 
         print('received', data)
 

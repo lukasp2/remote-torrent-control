@@ -49,9 +49,9 @@ class TorrentHandler:
                     'type' : item_soup.select('span.list-item.item-type')[0].text,
                     'name' : item_soup.select('span.list-item.item-name.item-title')[0].text,
                     'uploaded' : item_soup.select('span.list-item.item-uploaded')[0].text,
-                    'size' : item_soup.select("span.list-item.item-size")[0].text,
+                    'size' : item_soup.select("span.list-item.item-size")[0].text.replace('\u00a0', ' ').strip(),
                     'seed' : item_soup.select("span.list-item.item-seed")[0].text,
-                    'leech' : item_soup.select("span.list-item.item-leech")[0].text,
+                    'leech' : item_soup.select("span.list-item.item-leech")[0].text.replace('\u00a0', ' ').strip(),
                     'user' : item_soup.select("span.list-item.item-user")[0].text,
                 }
                 
