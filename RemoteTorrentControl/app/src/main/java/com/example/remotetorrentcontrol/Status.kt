@@ -7,10 +7,6 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import org.json.JSONObject
-import java.io.OutputStreamWriter
-import java.net.Socket
-import java.nio.charset.StandardCharsets
-import kotlin.concurrent.thread
 
 class Status : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +17,9 @@ class Status : AppCompatActivity() {
     fun statusRequest(view: View) {
         val sr = ServerRequest()
 
-        var data = JSONObject()
+        val data = JSONObject()
         data.put("request", "status_check")
-
-        // sr.send(data)
+        var responseMap = sr.send(data)
 
         // TODO: set result in arrayList
         val listView = findViewById<ListView>(R.id.listview)
@@ -34,11 +29,6 @@ class Status : AppCompatActivity() {
         arrayList.add("2")
         arrayList.add("3")
         arrayList.add("4")
-        arrayList.add("5")
-        arrayList.add("6")
-        arrayList.add("7")
-        arrayList.add("8")
-        arrayList.add("9")
 
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList)
 
