@@ -7,6 +7,8 @@ from pyppeteer import launch
 import os
 import json
 
+from config import CONFIG
+
 class TorrentHandler:
     def assert_VPN(self):
         command = 'nordvpn status'
@@ -21,26 +23,21 @@ class TorrentHandler:
 
     async def search_torrents(self, query):
         self.assert_VPN()
-        
-        # launch the browser
-        browser = await launch(headless=True, args=['--no-sandbox'])
 
-        # open a new browser page
+        browser = await launch(headless=True,
+                               handleSIGINT=False,
+                               handleSIGTERM=False,
+                               handleSIGHUP=False,
+                               args=['--no-sandbox'])
         page = await browser.newPage()
-        
         url = 'https://thepiratebay.org/search.php?q=' + query
-    
-        # open our test file in the opened page
         await page.goto(url)
         html = await page.content()
 
-        # process extracted content with BeautifulSoup
         soup = BeautifulSoup(html, 'lxml')
-
         results = soup.find_all('li', attrs={'id':'st'})
         
         torrents = []
-    
         for result in results:
             if len(str(result)) > 0:
                 item_soup = BeautifulSoup(str(result), 'lxml')
@@ -57,7 +54,6 @@ class TorrentHandler:
                 
                 torrents.append(torrent)
 
-        # close browser
         await browser.close()
 
         return torrents
@@ -66,10 +62,23 @@ class TorrentHandler:
         self.assert_VPN()
         command = 'transmission-remote -a ' + magnet
         output = os.popen(command).read()
-        return output # TODO: return success status
+
+        if self.command_check() == False:
+            return CONFIG["FAIL_MSG"]
+
+        return output # TODO
     
     def check_torrent_status(self):
         command = 'transmission-remote -l'
         output = os.popen(command).read()
-        return output # TODO: return dict
+
+        if self.command_check() == False:
+            return CONFIG["FAIL_MSG"]
+
+        return output # TODO: output { 'torrent name' : s, 'status' : i }
+
+    def command_check(self):
+        command = '$?'
+        success_check = os.popen(command).read()
+        return success_check == 0
     
