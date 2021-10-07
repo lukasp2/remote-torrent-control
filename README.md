@@ -14,6 +14,8 @@
 
 ## TODO
 ### client (android device) 
+- [ ] read config.json for setting of server, port and pwd
+- [ ] create UI for search torrent activity
 - [X] send search torrents request
 - [X] send download torrent request
 - [X] recieve answers
@@ -27,7 +29,7 @@
 - [ ] enable VPN connection
 - [X] check VPN connection
 - [X] check status of transmission
-- [ ] send answers to sender
+- [X] send answers to sender
  ### router (optional, for external access only)
 - [ ] setup dynDNS
 - [ ] setup portforwarding
