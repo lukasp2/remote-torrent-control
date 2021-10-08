@@ -1,5 +1,7 @@
 package com.example.remotetorrentcontrol
 
+import com.google.gson.Gson
+import com.google.gson.JsonElement
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.BufferedReader
@@ -11,37 +13,52 @@ import kotlin.concurrent.thread
 
 data class ServerConfigs (val HOST : String = "192.168.1.78", val PORT : Int = 9999)
 
+data class Response (val requestType : String, val data : ArrayList<Pair<String, String>>)
+
 class ServerRequest {
-    fun send(data : JSONObject): Map<String, String> {
+    fun send(data : JSONObject): Response {
+        val data = String(data.toString().toByteArray() , Charsets.UTF_8)
         var byteResponse = ""
+        val conn = Socket(ServerConfigs().HOST, ServerConfigs().PORT)
 
         val t = thread(start = true) {
+            // send header
+             OutputStreamWriter(conn.getOutputStream(), StandardCharsets.UTF_8).use { out ->
+                out.write(data.length)
+            }
+            println("[ INFO ] client sent header: ${data.length}")
+
             // send request
-            val conn = Socket(ServerConfigs().HOST, ServerConfigs().PORT)
             OutputStreamWriter(conn.getOutputStream(), StandardCharsets.UTF_8).use { out ->
                 out.write(data.toString())
             }
-
-            println("[ INFO ] client sent: $data")
+            println("[ INFO ] client sent content: $data")
 
             // get result
-            val input = BufferedReader(InputStreamReader(conn.inputStream))
-            byteResponse = input.readLine()
+            byteResponse = BufferedReader(InputStreamReader(conn.inputStream)).readLine()
+            println("[ INFO ] client received header: $byteResponse")
+            // TODO: can we skip header from server?
 
-            println("[ INFO ] client received: $byteResponse")
+            byteResponse = BufferedReader(InputStreamReader(conn.inputStream)).readLine()
+            println("[ INFO ] client received data: $byteResponse")
         }
         t.join()
 
-        val jsonResponse = JSONTokener(byteResponse).nextValue() as JSONObject
+        // MOCK
+        /*
+        val data_mock = ArrayList<Pair<String, String>>()
+        data_mock.add(Pair("Sagan om Kungen","12"))
+        data_mock.add(Pair("Bajonettmannen","23"))
+        data_mock.add(Pair("BurgerKing foot lettuce","34"))
+        data_mock.add(Pair("Haha","45"))
 
-        return this.jsonToMap(jsonResponse)
-    }
+        val response_mock = Response("status_request", data_mock)
+        */
+        // MOCK
 
-    private fun jsonToMap(json: Json): Map<String, String> {
-        val map: MutableMap<String, String> = linkedMapOf()
-        for (key in json.keys(json)) {
-            map[key] = json[key] as String
-        }
-        return map
+        val jsonResponse = JSONTokener(byteResponse).nextValue() as JsonElement
+        val response = Gson().fromJson(jsonResponse, Response::class.java)
+
+        return response
     }
 }

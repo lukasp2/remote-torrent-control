@@ -22,7 +22,7 @@ class SearchTorrent : AppCompatActivity() {
         data.put("request", "search_torrents")
         data.put("query", query)
 
-        sr.send(data)
+        val response = sr.send(data)
     }
 
     fun back(view: View) {
