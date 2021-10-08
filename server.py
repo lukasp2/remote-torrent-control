@@ -82,26 +82,19 @@ class Server:
     # gets response to be sent back to client
     def get_response(self, data):
         if data['request'] == 'search_torrents':
-            torrents = asyncio.new_event_loop().run_until_complete(
+            data = asyncio.new_event_loop().run_until_complete(
                 self.torrentHandler.search_torrents(data['query']))
-            
-            response = {
-                'data' : torrents
-            }
-            
         elif data['request'] == 'status_check':
-            response = { 
-                'data' : self.torrentHandler.check_torrent_status(),
-            }
-            
+            data = self.torrentHandler.check_torrent_status(),
         elif data['request'] == 'download':
-            response = { 
-                'data' : self.torrentHandler.start_download(data['magnet'])
-            }
-
+            data = self.torrentHandler.start_download(data['magnet'])
         else:
-            response = {'data' : '!FAIL'}
+            data = '!FAIL'
 
+        response = {
+            'data' : data
+        }
+   
         return response
 
     # main loop
