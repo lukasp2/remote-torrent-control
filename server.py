@@ -69,8 +69,8 @@ class Server:
         send_length = str(msg_length).encode(self.FORMAT)
         send_length += b' ' * (self.HEADER_SIZE - len(send_length))
 
-        conn.send(send_length)
         try:
+            conn.send(send_length)
             print(f'[ INFO ] sent header to {addr}: \"{send_length}\"')
             conn.send(msg)
             print(f'[ INFO ] sent response to {addr}: {msg}')
@@ -86,24 +86,21 @@ class Server:
                 self.torrentHandler.search_torrents(data['query']))
             
             response = {
-                'request' : data['request'],
-                'response' : torrents
+                'data' : torrents
             }
             
         elif data['request'] == 'status_check':
             response = { 
-                'request' : data['request'],
-                'response' : self.torrentHandler.check_torrent_status(),
+                'data' : self.torrentHandler.check_torrent_status(),
             }
             
         elif data['request'] == 'download':
             response = { 
-                'request' : data['request'],
-                'response' : self.torrentHandler.start_download(data['magnet'])
+                'data' : self.torrentHandler.start_download(data['magnet'])
             }
 
         else:
-            response = {'request' : 'unknown', 'response' : '!FAIL'}
+            response = {'data' : '!FAIL'}
 
         return response
 
