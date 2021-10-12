@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RemoteTorrentControl">
         <activity
-            android:name=".Status"
+            android:name=".StatusActivity"
             android:exported="true" />
         <activity
-            android:name=".SearchTorrent"
+            android:name=".SearchActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
