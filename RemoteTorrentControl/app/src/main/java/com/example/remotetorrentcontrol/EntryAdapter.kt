@@ -45,35 +45,12 @@ open class EntryAdapter(private val context: Context) : BaseAdapter() {
     }
 }
 
-// used by SearchTorrent::updateUI to update its UI
-class SearchEntryAdapter(private val context: Context,
-                         override var response: Response)
-    : EntryAdapter(context) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        // Get view for row item
-        val rowView = super.inflater.inflate(R.layout.status_list, parent, false)
-
-        val title = rowView.findViewById(R.id.item_name) as TextView
-        val filesize = rowView.findViewById(R.id.filesize) as TextView
-        val seeders = rowView.findViewById(R.id.seeders) as TextView
-        val leechers = rowView.findViewById(R.id.leechers) as TextView
-
-        val rowItem = super.getItem(position)
-
-        title.text = rowItem["name"]
-        filesize.text = rowItem["size"]
-        seeders.text = rowItem["seed"]
-        leechers.text = rowItem["leech"]
-
-        return rowView
-    }
-}
-
 // used by Status::updateUI to update its UI
-class StatusEntryAdapter(private val context: Context,
-                         override var response: Response)
+class StatusEntryAdapter(private val context: Context, override var response: Response)
     : EntryAdapter(context) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        println("[ DEBUG ] StatusEntryAdapter::getView()")
+
         // Get view for row item
         val rowView = inflater.inflate(R.layout.status_list, parent, false)
 
@@ -84,6 +61,28 @@ class StatusEntryAdapter(private val context: Context,
 
         title.text = rowItem["title"]
         status.text = rowItem["status"]
+        return rowView
+    }
+}
+
+// used by SearchTorrent::updateUI to update its UI
+class SearchEntryAdapter(private val context: Context, override var response: Response)
+    : EntryAdapter(context) {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        // Get view for row item
+        val rowView = super.inflater.inflate(R.layout.status_list, parent, false)
+
+        val title = rowView.findViewById(R.id.item_name) as TextView
+        val filesize = rowView.findViewById(R.id.filesize) as TextView
+        val seed = rowView.findViewById(R.id.seeders) as TextView
+        val leech = rowView.findViewById(R.id.leechers) as TextView
+
+        val rowItem = super.getItem(position)
+
+        title.text = rowItem["name"]
+        filesize.text = rowItem["size"]
+        seed.text = rowItem["seed"]
+        leech.text = rowItem["leech"]
 
         return rowView
     }
