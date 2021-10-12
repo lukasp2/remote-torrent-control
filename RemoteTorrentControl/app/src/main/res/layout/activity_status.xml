@@ -30,7 +30,7 @@
         android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="back"
+        android:onClick="goBack"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="20dp" />

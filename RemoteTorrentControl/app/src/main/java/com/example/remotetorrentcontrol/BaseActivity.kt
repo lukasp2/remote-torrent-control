@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.beust.klaxon.Klaxon
 import com.google.gson.JsonObject
 import org.json.JSONObject
 
@@ -17,25 +18,13 @@ open class BaseActivity(private val layout : Int) : AppCompatActivity() {
         setContentView(layout)
     }
 
-    // TODO: move this to where it belongs
-    protected fun jsonToArray(json : JsonObject) : ArrayList<Map<String, String>>{
-        val jsonStr = json.toString()
-        println("json str: ${jsonStr}")
-
-        val array = ArrayList<Map<String, String>>()
-
-        // val mapEntry = Gson().fromJson(jsonStr, Map::class.java) as Map<String, String>
-
-        return array
-    }
-
     // calls Server::send()
     protected fun send(data : JSONObject) {
         server.send(data)
     }
 
     // calls Server::receive() and returns server response
-    protected fun receive() : JsonObject {
+    protected fun receive() : Response {
         // TODO: make FAIL check on response
         return server.receive()
     }
