@@ -14,7 +14,7 @@
 
 ## TODO
 ### client (android device) 
-- [ ] read config.json for setting of server, port and pwd
+- [X] read config.json for setting of server, port and pwd
 - [X] create UI for search torrent activity
 - [X] send search torrents request
 - [X] send download torrent request
