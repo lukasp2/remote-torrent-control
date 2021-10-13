@@ -7,48 +7,43 @@ import threading
 import asyncio
 
 from torrent_handler import TorrentHandler
-from config import CONFIG
 
 class Server:
     def __init__(self):
-        self.HEADER_SIZE = CONFIG["HEADER_SIZE"]
-        self.FORMAT = CONFIG["FORMAT"]
+        f = open('config.json',)
+        self.config = json.load(f)
+        f.close
 
-        self.DISCONNECT_MSG = CONFIG["DISCONNECT_MSG"]
-        self.FAIL_MSG = CONFIG["FAIL_MSG"]
-
-        self.SERVER = CONFIG["SERVER"] #socket.gethostbyname(socket.gethostname())
-        self.PORT = CONFIG["PORT"]
-        self.ADDR = (self.SERVER, self.PORT)
-
+        self.torrentHandler = TorrentHandler(self.config)
+        
+        self.ADDR = (self.config['SERVER'], self.config['PORT'])
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind(self.ADDR)
-
-        self.torrentHandler = TorrentHandler()
 
     # run by a thread handling each client
     def handle_client(self, conn, addr):
         print(f'[ INFO ] {addr} connected')
-        #asyncio.set_event_loop(asyncio.new_event_loop())
         
         connected = True
         while connected:
-            msg_length = conn.recv(self.HEADER_SIZE).decode(self.FORMAT)
+            msg_length = conn.recv(self.config['HEADER_SIZE'])
 
             if not msg_length:
                 continue
+
+            msg_length = int(msg_length.decode(self.config['FORMAT']))
             
             try:
-                data = conn.recv(int(msg_length))
+                data = conn.recv(msg_length)
             except socket.error:
                 print('[ ERROR ] recieve failed, exiting ...')
                 conn.close()
                 sys.exit()
 
-            data = json.loads(data.decode(self.FORMAT))
+            data = json.loads(data.decode(self.config['FORMAT']))
             print(f'[ INFO ] request {data} from {addr}')
 
-            if data['request'] == self.DISCONNECT_MSG:
+            if data['request'] == self.config['DISCONNECT_MSG']:
                 connected = False
                 continue
 
@@ -64,10 +59,10 @@ class Server:
     # sends message to addr
     def send(self, msg, conn, addr):
         msg = json.dumps(msg)
-        msg = msg.encode(self.FORMAT)
+        msg = msg.encode(self.config['FORMAT'])
         msg_length = len(msg)
-        send_length = str(msg_length).encode(self.FORMAT)
-        send_length += b' ' * (self.HEADER_SIZE - len(send_length))
+        send_length = str(msg_length).encode(self.config['FORMAT'])
+        send_length += b' ' * (self.config['HEADER_SIZE'] - len(send_length))
 
         try:
             conn.send(send_length)
@@ -89,7 +84,7 @@ class Server:
         elif data['request'] == 'download':
             data = self.torrentHandler.start_download(data['magnet'])
         else:
-            data = '!FAIL'
+            data = self.config['FAIL_MSG']
 
         response = {
             'data' : data
@@ -101,14 +96,14 @@ class Server:
     def run(self):
         self.server.listen()
 
-        print(f'[ INFO ] listening on {self.SERVER} ...')
+        print(f'[ INFO ] listening on {self.config["SERVER"]} ...')
 
         while True:
             conn, addr = self.server.accept()
             thread = threading.Thread(target=self.handle_client, args=(conn, addr))
             thread.start()
             print(f'[ INFO ] {threading.active_count() - 1} active connection(s)')
-            
+
 if __name__ == '__main__':
     s = Server()
     s.run()

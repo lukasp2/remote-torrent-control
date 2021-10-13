@@ -2,7 +2,7 @@
 	"HEADER_SIZE": 64,
 	"DISCONNECT_MSG": "!DISCONNECT",
 	"FAIL_MSG": "!FAIL",
-	"SERVER" : "10.8.3.2",
+	"SERVER" : "10.8.2.5",
 	"PORT" : 9999,
-	"FORMAT" : "utf-8",
+	"FORMAT" : "utf-8"
 }

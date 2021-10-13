@@ -7,9 +7,10 @@ from pyppeteer import launch
 import os
 import json
 
-from config import CONFIG
-
 class TorrentHandler:
+    def __init__(self, config):
+        self.config = config
+
     def assert_VPN(self):
         command = 'nordvpn status'
         output = os.popen(command).read()
@@ -64,7 +65,7 @@ class TorrentHandler:
         output = os.popen(command).read()
 
         if self.command_check() == False:
-            return CONFIG["FAIL_MSG"]
+            return self.config["FAIL_MSG"]
 
         return output # TODO
     
@@ -73,7 +74,7 @@ class TorrentHandler:
         output = os.popen(command).read()
 
         if self.command_check() == False:
-            return CONFIG["FAIL_MSG"]
+            return self.config["FAIL_MSG"]
 
         return output # TODO: output { 'torrent name' : s, 'status' : i }
 
