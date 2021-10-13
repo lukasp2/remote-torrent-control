@@ -1,8 +1,5 @@
 package com.example.remotetorrentcontrol
 
-import com.beust.klaxon.Klaxon
-import java.io.File
-
 // when adding a new config parameter in config.json, all you need to do is add it here
 // and access it through configHandler.getConfig()
 data class Config(
@@ -13,11 +10,19 @@ data class Config(
     val PORT : Int,
     val FORMAT : String)
 
-// TODO: the server script reads from a config.py file :( fix the server
 class ConfigHandler() {
-    private val configPath = "..\\..\\..\\..\\..\\..\\..\\..\\config.json"
-    private val jsonConfigStr = File(this.configPath).inputStream().readBytes().toString(Charsets.UTF_8)
-    private val config = Klaxon().parse<Config>(jsonConfigStr) as Config
+    // TODO: read config from file
+
+    //val jsonConfigStr = {}.javaClass.getResource("config.json").readBytes().toString(Charsets.UTF_8)
+    //val file = File("config.json")
+    //val stream = file.inputStream()
+    //val bytes = stream.readBytes()
+    //val jsonConfigStr = bytes.toString(Charsets.UTF_8)
+
+    //private val jsonConfigStr = File("src/config.json").inputStream().readBytes().toString(Charsets.UTF_8)
+    // private val config = Klaxon().parse<Config>(jsonConfigStr) as Config
+
+    private val config = Config(64, "!DISCONNECT", "!FAIL", "10.8.2.5", 9999, "utf-8")
 
     fun getConfig() : Config {
         return this.config

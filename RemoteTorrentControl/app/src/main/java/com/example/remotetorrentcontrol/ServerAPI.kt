@@ -13,7 +13,8 @@ import kotlin.concurrent.thread
 
 data class Response(val data : ArrayList<Map<String, String>> = ArrayList())
 
-class ServerAPI(private val HOST : String = "192.168.1.78",private val PORT : Int = 9999) {
+class ServerAPI() {
+    val config = ConfigHandler().getConfig()
     val MOCK_RESPONSE : Boolean = true
 
     // used by .send() to store response for receive()
@@ -21,7 +22,9 @@ class ServerAPI(private val HOST : String = "192.168.1.78",private val PORT : In
 
     // returns response from .send()
     fun receive() : Response {
-        return Klaxon().parse<Response>(jsonResponse.toString()) as Response
+        val response = Klaxon().parse<Response>(this.jsonResponse.toString()) as Response
+        println("ServerAPI::receive() response == ${response}")
+        return response
     }
 
     // sends request and returns JsonObject == Map<String, JsonElement>
@@ -31,11 +34,11 @@ class ServerAPI(private val HOST : String = "192.168.1.78",private val PORT : In
             return
         }
 
-        val data = String(data.toString().toByteArray() , Charsets.UTF_8)
+        val data = String(data.toString().toByteArray(), Charsets.UTF_8)
         this.jsonResponse = JSONObject()
 
         var byteResponse = ""
-        val conn = Socket(this.HOST, this.PORT)
+        val conn = Socket(config.SERVER, config.PORT)
 
         val t = thread(start = true) {
             // send header
@@ -90,5 +93,7 @@ class ServerAPI(private val HOST : String = "192.168.1.78",private val PORT : In
             this.jsonResponse.put("7", JsonParser.parseString("{\"type\":\"Movies\",\"name\":\"Vem stal min kexchokla\",\"uploaded\":\"2021-10-09\",\"size\":\"1.4 Gb\",\"seed\":\"6\",\"leech\":\"5\",\"user\":\"myUsername\"}"))
             this.jsonResponse.put("8", JsonParser.parseString("{\"type\":\"Movies\",\"name\":\"Juice\",\"uploaded\":\"2021-10-09\",\"size\":\"1.4 Gb\",\"seed\":\"6\",\"leech\":\"5\",\"user\":\"myUsername\"}"))
         }
+
+        println("ServerAPI::mockRequest() jsonResponse == ${jsonResponse.toString()}")
     }
 }

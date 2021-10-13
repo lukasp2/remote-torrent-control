@@ -46,8 +46,8 @@ abstract class EntryAdapter(private val context: Context) : BaseAdapter() {
 // used by Status::updateUI to update its UI
 class StatusEntryAdapter(private val context: Context, override var response: Response)
     : EntryAdapter(context) {
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        println("[ DEBUG ] StatusEntryAdapter::getView()")
         val rowView = inflater.inflate(R.layout.status_list, parent, false)
         val title = rowView.findViewById(R.id.item_name) as TextView
         val status = rowView.findViewById(R.id.item_status) as TextView

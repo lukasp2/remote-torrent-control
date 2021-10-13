@@ -2,17 +2,11 @@ package com.example.remotetorrentcontrol
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import com.beust.klaxon.Klaxon
-import com.google.gson.JsonObject
 import org.json.JSONObject
 
 // this class is a parent to all activity classes communicating with the server
 open class BaseActivity(private val layout : Int) : AppCompatActivity() {
-
-    // TODO: read server config and supply here:
     private val server = ServerAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {
