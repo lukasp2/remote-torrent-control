@@ -1,4 +1,5 @@
-# remote-torrent-control
+# Remote Torrent Control
+An android application which acts as a remote control for your torrent server. It's not illegal if you never run it ;)
 
 ## Setup
 * client
