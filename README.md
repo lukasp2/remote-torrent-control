@@ -1,14 +1,14 @@
 # Remote Torrent Control
 An android application which acts as a remote control for your torrent server. It's not illegal if you never run it ;)
 
-Client app is written in Kotlin and developed in Android Studio. Server side scripts ```server```, ```torrent_handler``` and ```client_mock``` are written in Python
+Client app is written in Kotlin and developed in Android Studio. Server side scripts ```server```, ```torrent_handler``` and ```client_mock``` are written in Python.
 
 ## Setup
 * client
   * install the app
 * torrent server
   * setup split tunneling
-  * setup VPN
+  * setup nordvpn
   * setup transmission-remote https://pimylifeup.com/raspberry-pi-transmission/
   * run ```server.py```
 * router (optional, for external access only)
