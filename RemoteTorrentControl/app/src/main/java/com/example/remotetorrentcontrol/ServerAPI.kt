@@ -11,12 +11,9 @@ import java.net.Socket
 import java.nio.charset.StandardCharsets
 import kotlin.concurrent.thread
 
-// TODO: read this from config.json file
-data class ServerConfigs (val HOST : String = "192.168.1.78", val PORT : Int = 9999)
-
 data class Response(val data : ArrayList<Map<String, String>> = ArrayList())
 
-class ServerAPI {
+class ServerAPI(private val HOST : String = "192.168.1.78",private val PORT : Int = 9999) {
     val MOCK_RESPONSE : Boolean = true
 
     // used by .send() to store response for receive()
@@ -38,7 +35,7 @@ class ServerAPI {
         this.jsonResponse = JSONObject()
 
         var byteResponse = ""
-        val conn = Socket(ServerConfigs().HOST, ServerConfigs().PORT)
+        val conn = Socket(this.HOST, this.PORT)
 
         val t = thread(start = true) {
             // send header

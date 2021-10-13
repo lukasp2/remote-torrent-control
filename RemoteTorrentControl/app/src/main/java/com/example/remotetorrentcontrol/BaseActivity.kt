@@ -11,6 +11,8 @@ import org.json.JSONObject
 
 // this class is a parent to all activity classes communicating with the server
 open class BaseActivity(private val layout : Int) : AppCompatActivity() {
+
+    // TODO: read server config and supply here:
     private val server = ServerAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {

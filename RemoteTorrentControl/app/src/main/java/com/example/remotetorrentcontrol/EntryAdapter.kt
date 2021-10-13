@@ -10,7 +10,7 @@ import android.widget.TextView
 /* For displaying lists of data.
  * - used for inheritance by all .kt's that communicate with server and displays response.
  */
-open class EntryAdapter(private val context: Context) : BaseAdapter() {
+abstract class EntryAdapter(private val context: Context) : BaseAdapter() {
     protected open var response: Response = Response()
 
     protected val inflater: LayoutInflater
@@ -29,9 +29,7 @@ open class EntryAdapter(private val context: Context) : BaseAdapter() {
     }
 
     // override this method to update the UI
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        throw Exception("EntryAdapter::getView(): You need to override me!")
-    }
+    abstract override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
 
     private fun setLoadImage() {
         //set load image in imageView
