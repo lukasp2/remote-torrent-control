@@ -5,7 +5,7 @@ import android.widget.EditText
 import android.widget.ListView
 import org.json.JSONObject
 
-class SearchActivity : BaseActivity(R.layout.activity_search_torrent) {
+class TorrentSearchActivity : BaseActivity(R.layout.activity_search_torrent) {
     fun search(view: View) {
         val query = findViewById<EditText>(R.id.search_torrents).text
         val data = JSONObject()

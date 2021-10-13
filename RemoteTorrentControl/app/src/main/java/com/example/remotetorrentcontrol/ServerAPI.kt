@@ -1,7 +1,6 @@
 package com.example.remotetorrentcontrol
 
 import com.beust.klaxon.Klaxon
-import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -12,6 +11,7 @@ import java.net.Socket
 import java.nio.charset.StandardCharsets
 import kotlin.concurrent.thread
 
+// TODO: read this from config.json file
 data class ServerConfigs (val HOST : String = "192.168.1.78", val PORT : Int = 9999)
 
 data class Response(val data : ArrayList<Map<String, String>> = ArrayList())

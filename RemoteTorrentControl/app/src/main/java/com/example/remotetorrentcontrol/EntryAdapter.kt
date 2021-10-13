@@ -50,10 +50,7 @@ class StatusEntryAdapter(private val context: Context, override var response: Re
     : EntryAdapter(context) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         println("[ DEBUG ] StatusEntryAdapter::getView()")
-
-        // Get view for row item
         val rowView = inflater.inflate(R.layout.status_list, parent, false)
-
         val title = rowView.findViewById(R.id.item_name) as TextView
         val status = rowView.findViewById(R.id.item_status) as TextView
 
@@ -69,9 +66,8 @@ class StatusEntryAdapter(private val context: Context, override var response: Re
 class SearchEntryAdapter(private val context: Context, override var response: Response)
     : EntryAdapter(context) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        // Get view for row item
+        // TODO: move this inflater
         val rowView = super.inflater.inflate(R.layout.status_list, parent, false)
-
         val title = rowView.findViewById(R.id.item_name) as TextView
         val filesize = rowView.findViewById(R.id.filesize) as TextView
         val seed = rowView.findViewById(R.id.seeders) as TextView
