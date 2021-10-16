@@ -13,12 +13,14 @@ class TorrentStatusActivity : BaseActivity(R.layout.activity_status) {
 
         super.send(data)
         val response = super.receive()
-
+        println("TorrentStatusActivity::updateUI() got response $response")
         updateUI(response)
+        println("TorrentStatusActivity::updateUI() DONE")
     }
 
     // update UI
     private fun updateUI(response : Response) {
+        println("TorrentStatusActivity::updateUI()")
         val entryAdapter = StatusEntryAdapter(this, response)
         val listView = findViewById<ListView>(R.id.listview)
         listView.adapter = entryAdapter

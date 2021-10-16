@@ -17,11 +17,17 @@ abstract class EntryAdapter(private val context: Context) : BaseAdapter() {
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
-        return response.data.size
+        return response.size
     }
 
     override fun getItem(position: Int): Map<String, String> {
-        return response.data[position]
+        println("EntryAdapter::getItem() response == ${response}")
+        println("EntryAdapter::getItem() response.data.size == ${response.size}")
+        println("EntryAdapter::getItem() pos == ${position}")
+        println("EntryAdapter::getItem() item == ${response[position]}")
+        val item = response[position]
+        println("EntryAdapter::getItem() item == ${response[position]} 2")
+        return item
     }
 
     override fun getItemId(position: Int): Long {
@@ -48,6 +54,7 @@ class StatusEntryAdapter(private val context: Context, override var response: Re
     : EntryAdapter(context) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        println("EntryAdapter.kt : StatusEntryAdapter::getView()")
         val rowView = inflater.inflate(R.layout.status_list, parent, false)
         val title = rowView.findViewById(R.id.item_name) as TextView
         val status = rowView.findViewById(R.id.item_status) as TextView
